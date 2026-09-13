@@ -41,7 +41,8 @@ ball = GameSprite('Без имени1.png', 300, 200, 3, 65, 65)
 clock = time.Clock()
 FPS = 60
 
-speed = 3
+speed_x = 3
+speed_y = 3
 
 game = True
 while game:
@@ -49,17 +50,16 @@ while game:
     racket1.update_l()
     racket2.update_r()
 # Движение мяча
-    ball.rect.x += speed
-    ball.rect.y += speed 
+    ball.rect.x += speed_x
+    ball.rect.y += speed_y
 
     # Отскок от левой/правой
     if ball.rect.y < 5 or ball.rect.y > 430:
-        speed *= -1
+        speed_y *= -1
 
     # Отскок от платформы — только если летел вниз
-    #if speed_y > 0 and ball.rect.colliderect(platforma.rect):
-        #speed_y *= -1
-        #ball.rect.y = platforma.rect.y - ball.rect.height
+    if speed_y > 0 and ball.rect.colliderect(racket1.rect) or ball.rect.colliderect(racket2.rect):
+        speed_x *= -1
     racket1.show()
     racket2.show()
     ball.show()  
