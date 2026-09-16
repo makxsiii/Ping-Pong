@@ -6,6 +6,8 @@ display.set_caption('Ping-Pong')
 background = transform.scale(image.load('Без имени1234.png'), (700, 500))
 
 color = (255, 255, 255)
+red = (255, 0, 0)
+blue = (0,0,255)
 
 WIN1 = font.Font(None, 70).render('PLAYER_1 WINNER!', True, (255, 255, 255))
 WIN2 = font.Font(None, 70).render('PLAYER_2 WINNER!!', True, (255, 255, 255))
@@ -67,11 +69,15 @@ while game:
 
     if not finish:
         window.blit(background, (0, 0))
+        draw.line(window, color, (345, 0), (345, 500), 5)
+        draw.rect(window, red, (295, 17, 102, 25))
+        draw.rect(window, blue, (295, 57, 102, 25))
+        draw.circle(window, color, (350, 250), 150, 5)
         racket1.update_l()
         racket2.update_r()
 
-        GameSprite.draw_text(30, f"Score_1: {score1}", (255, 255, 255), (10, 50))
-        GameSprite.draw_text(30, f"Score_2: {score2}", (255, 255, 255), (580, 50))
+        GameSprite.draw_text(30, f"Score_1: {score1}", (255, 255, 255), (295, 20))
+        GameSprite.draw_text(30, f"Score_2: {score2}", (255, 255, 255), (295, 60))
 
         # Движение мяча
         ball.rect.x += speed_x
@@ -110,4 +116,4 @@ while game:
             finish = True   
 
     display.update()
-    clock.tick(FPS)
+    clock.tick(FPS)    clock.tick(FPS)
