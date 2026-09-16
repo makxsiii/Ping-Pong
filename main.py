@@ -5,6 +5,8 @@ window = display.set_mode((700, 500))
 display.set_caption('Ping-Pong')
 background = transform.scale(image.load('Без имени1234.png'), (700, 500))
 
+color = (255, 255, 255)
+
 WIN1 = font.Font(None, 70).render('PLAYER_1 WINNER!', True, (255, 255, 255))
 WIN2 = font.Font(None, 70).render('PLAYER_2 WINNER!!', True, (255, 255, 255))
 
@@ -29,6 +31,8 @@ class GameSprite(sprite.Sprite):
         game_font = font.Font(None, size)
         rendered_txt = game_font.render(txt, True, rgb)
         window.blit(rendered_txt, pos)
+    def outline(self, color, thickness): #обводка существующего прямоугольника
+        draw.rect(window, color, self.rect, thickness)
 
 class Player(GameSprite):
     def update_l(self):
@@ -43,6 +47,7 @@ class Player(GameSprite):
             self.rect.y -= self.speed
         if keys[K_DOWN] and self.rect.y < 395:
             self.rect.y += self.speed
+    
 
 racket1 = Player('Без имени12.png', 5, 200, 5, 20, 100)
 racket2 = Player('Без имени12.png', 675, 200, 5, 20, 100)
@@ -77,11 +82,14 @@ while game:
             speed_y *= -1
 
         # Отскок от платформы — только если летел вниз
-        if speed_y > 0 and ball.rect.colliderect(racket1.rect) or ball.rect.colliderect(racket2.rect):
+        if ball.rect.colliderect(racket1.rect) or ball.rect.colliderect(racket2.rect):
             speed_x *= -1
         racket1.show()
         racket2.show()
         ball.show()
+
+        racket1.outline(color, 2)
+        racket2.outline(color, 2)
 
         if ball.rect.x > 700:
             ball.rect.x = 300
